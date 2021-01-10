@@ -38,6 +38,7 @@ def pie(data):
     fig1,ax1 = plt.subplots()
     ax1.pie(x=data.Year.value_counts().values, labels=data.Year.value_counts().keys(), autopct='%1.1f%%')
     ax1.axis('equal')
+    plt.legend()
     plt.title('Years of Rallies')
     plt.show()
 
