@@ -62,6 +62,8 @@ def scatter_and_plot(data):
     plt.plot(data['# Of Sentences'], slope_pos*data['# Of Sentences']+intercept_pos, label='Positive Trend')
     plt.legend()
     plt.title('Spread of Sentiments vs Number of Sentences in Trump Speeches')
+    plt.ylabel('Z-Score')
+    plt.xlabel('Number of Sentences')
     plt.show()
 
 #Making confusion matrix of Trump speeches function
