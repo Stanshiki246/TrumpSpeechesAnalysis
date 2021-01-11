@@ -8,7 +8,7 @@ import pandas as pd
 from scipy import stats
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.metrics import confusion_matrix
+from sklearn.metrics import confusion_matrix,accuracy_score, f1_score, precision_score, recall_score
 from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
 import numpy as np
@@ -141,6 +141,21 @@ def bar_most_positive_words(df):
     plt.title('Most 15 Common Positive Words from Trump Speeches')
     plt.show()
 
+def get_metrics(y_test, y_predicted):
+    # true positives / (true positives+false positives)
+    precision = precision_score(y_test, y_predicted, pos_label=None,
+                                    average='weighted')
+    # true positives / (true positives + false negatives)
+    recall = recall_score(y_test, y_predicted, pos_label=None,
+                              average='weighted')
+
+    # harmonic mean of precision and recall
+    f1 = f1_score(y_test, y_predicted, pos_label=None, average='weighted')
+
+    # true positives + true negatives/ total
+    accuracy = accuracy_score(y_test, y_predicted)
+    return accuracy, precision, recall, f1
+
 df=pd.read_csv('TrumpDatasets.csv')#Reading data from csv file
 #print(df.info())
 
@@ -183,6 +198,8 @@ elif choice == 3:
 elif choice == 4:
     cm = confusion_matrix(y_test,y_predicted_counts)
     plot_confusion_matrix(cm, classes=['pos','neu','neg'],normalize=False)
+    accuracy, precision, recall, f1 = get_metrics(y_test,y_predicted_counts)
+    print("accuracy = %.3f, precision = %.3f, recall = %.3f, f1 = %.3f" % (accuracy, precision, recall, f1))
 elif choice == 5:
     bar_most_negative_words(df)
 elif choice == 6:
