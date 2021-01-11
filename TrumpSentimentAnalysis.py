@@ -199,7 +199,7 @@ elif choice == 4:
     cm = confusion_matrix(y_test,y_predicted_counts)
     plot_confusion_matrix(cm, classes=['pos','neu','neg'],normalize=False)
     accuracy, precision, recall, f1 = get_metrics(y_test,y_predicted_counts)
-    print("accuracy = %.3f, precision = %.3f, recall = %.3f, f1 = %.3f" % (accuracy, precision, recall, f1))
+    print("accuracy = %.3f\nprecision = %.3f\nrecall = %.3f\nf1 = %.3f" % (accuracy, precision, recall, f1))
 elif choice == 5:
     bar_most_negative_words(df)
 elif choice == 6:
