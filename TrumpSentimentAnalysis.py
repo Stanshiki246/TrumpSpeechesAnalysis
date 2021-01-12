@@ -169,7 +169,7 @@ x_train_counts, count_vectorizer = cv(x_train)
 x_test_counts = count_vectorizer.transform(x_test)
 #Get True Labels
 clf = LogisticRegression(C=30.0, class_weight='balanced', solver='newton-cg', multi_class='multinomial',
-                         n_jobs=1, random_state=40)
+                         n_jobs= -1, random_state=40)
 clf.fit(x_train_counts,y_train)
 #Get Predicted labels
 y_predicted_counts = clf.predict(x_test_counts)
