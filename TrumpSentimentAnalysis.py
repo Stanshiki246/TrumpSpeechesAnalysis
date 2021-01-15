@@ -158,23 +158,26 @@ def get_metrics(y_test, y_predicted):
 
 df=pd.read_csv('TrumpDatasets.csv')#Reading data from csv file
 #print(df.info())
+'''
 
+'''
 #Make lists for train and test split
 list_corpus=df['Cleaned Text'].to_list()
 list_sentiment=df['Sentiment Label'].to_list()
 #Do train and test split
-x_train,x_test,y_train,y_test = train_test_split(list_corpus,list_sentiment,test_size=0.2,random_state=40)
+x_train,x_test,y_train,y_test = train_test_split(list_corpus,list_sentiment,test_size=0.8,random_state=40)
 #Get counts of X train and test
 x_train_counts, count_vectorizer = cv(x_train)
 x_test_counts = count_vectorizer.transform(x_test)
+#print('X Train counts: ', x_train_counts)
+#print('X Test counts: ', x_test_counts)
 #Get True Labels
 clf = LogisticRegression(C=30.0, class_weight='balanced', solver='newton-cg', multi_class='multinomial',
-                         n_jobs= -1, random_state=40)
-clf.fit(x_train_counts,y_train)
+                         n_jobs=-1, random_state=40)
+clf.fit(x_train_counts, y_train)
 #Get Predicted labels
 y_predicted_counts = clf.predict(x_test_counts)
-
-
+#print(y_test)
 '''
 
 '''
@@ -197,7 +200,7 @@ elif choice == 3:
     scatter_and_plot(df)
 elif choice == 4:
     cm = confusion_matrix(y_test,y_predicted_counts)
-    plot_confusion_matrix(cm, classes=['pos','neu','neg'],normalize=False)
+    plot_confusion_matrix(cm, classes=['neu','pos'],normalize=False)
     accuracy, precision, recall, f1 = get_metrics(y_test,y_predicted_counts)
     print("accuracy = %.3f\nprecision = %.3f\nrecall = %.3f\nf1 = %.3f" % (accuracy, precision, recall, f1))
 elif choice == 5:
